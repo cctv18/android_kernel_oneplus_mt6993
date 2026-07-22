@@ -112,6 +112,12 @@ DECLARE_HOOK(android_vh_vmscan_kswapd_done,
 	TP_PROTO(int node_id, unsigned int highest_zoneidx, unsigned int alloc_order,
 		unsigned int reclaim_order),
 	TP_ARGS(node_id, highest_zoneidx, alloc_order, reclaim_order));
+DECLARE_HOOK(android_vh_remove_mapping,
+	TP_PROTO(struct address_space *mapping, struct folio *folio, bool reclaimed),
+	TP_ARGS(mapping, folio, reclaimed));
+DECLARE_HOOK(android_vh_remove_mapping_failed,
+	TP_PROTO(struct address_space *mapping, struct folio *folio, bool reclaimed),
+	TP_ARGS(mapping, folio, reclaimed));
 DECLARE_RESTRICTED_HOOK(android_rvh_vmscan_kswapd_wake,
 	TP_PROTO(int node_id, unsigned int highest_zoneidx, unsigned int alloc_order),
 	TP_ARGS(node_id, highest_zoneidx, alloc_order), 1);
@@ -151,6 +157,9 @@ DECLARE_HOOK(android_vh_mm_customize_reclaim_idx,
 DECLARE_HOOK(android_vh_may_unmap_folio,
 	TP_PROTO(enum lru_list lru, struct scan_control *sc, struct folio *folio, bool *bypass),
 	TP_ARGS(lru, sc, folio, bypass));
+DECLARE_HOOK(android_vh_skip_cma,
+	TP_PROTO(struct scan_control *sc, bool *bypass),
+	TP_ARGS(sc, bypass));
 
 #endif /* _TRACE_HOOK_VMSCAN_H */
 /* This part must be outside protection */
